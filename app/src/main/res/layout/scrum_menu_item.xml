@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:id="@+id/scrum_menu_item"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
