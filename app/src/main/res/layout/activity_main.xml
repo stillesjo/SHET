@@ -14,4 +14,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrum_member_list"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/choose_estimation_button"
+
+        />
+
 </RelativeLayout>

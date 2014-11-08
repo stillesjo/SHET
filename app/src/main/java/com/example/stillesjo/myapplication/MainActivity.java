@@ -1,18 +1,18 @@
 package com.example.stillesjo.myapplication;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
@@ -20,26 +20,57 @@ public class MainActivity extends Activity implements View.OnClickListener{
     static final int    ESTIMATE_REQUEST = 1;
     static final String ESTIMATE_RESULT = "ESTIMATE_RESULT";
 
+    private ScrumAdapter mScrumAdapter;
+    private HashMap<String, String> mAddressNameHash;
+    private String mAddress;
+    private String mUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ListView view = (ListView) findViewById(R.id.scrum_list);
-//        String[] scrum_points = {"?","c","0", "1","2","3","5","8","13","20","40","100"};
-//        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, R.layout.scrum_menu_item,scrum_points);
-//        view.setAdapter(myAdapter);
-//        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TextView _view = (TextView) view;
-//
-//                Log.v("Stuff", _view.getText().toString());
-//            }
-//        });
 
-
+        // Add listener to button
         Button estimateButton = (Button) findViewById(R.id.choose_estimation_button);
         estimateButton.setOnClickListener(this);
+
+        // Initiate hash
+        mAddressNameHash = new HashMap<String, String>();
+
+        // Create a list view with an empty adapter
+        ListView memberList = (ListView) findViewById(R.id.scrum_member_list);
+        ArrayList<ScrumMember> members = new ArrayList<ScrumMember>();
+        members.add(new ScrumMember("a", "123123"));
+        members.add(new ScrumMember("b", "123123"));
+        members.add(new ScrumMember("c", "123123"));
+
+        mScrumAdapter = new ScrumAdapter(getLayoutInflater(),members);
+        memberList.setAdapter(mScrumAdapter);
+
+        // Adds user to list
+        addCurrentUser();
+
+    }
+
+    /**
+     * Add the current user to the hash and list of users
+     */
+    private void addCurrentUser() {
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        mUsername = adapter.getName();
+        mAddress = adapter.getAddress();
+        if (mUsername == null)
+            mUsername = mAddress;
+        addNewUser(mUsername, mAddress);
+    }
+
+    private void addNewUser(String username, String address) {
+        if (mAddressNameHash.containsKey(address)) {
+            Log.e(getClass().getName(), String.format("Found duplicates of users in the hash. Name: %s, Address: %s",username, address));
+        } else {
+            mAddressNameHash.put(address, username);
+            //mScrumAdapter.add(username);
+        }
     }
 
 

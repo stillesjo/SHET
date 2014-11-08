@@ -20,6 +20,9 @@
             android:name="com.example.stillesjo.myapplication.ChooseEstimationActivity"
             android:label="@string/title_activity_choose_estimation" >
         </activity>
+
     </application>
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
 </manifest>
