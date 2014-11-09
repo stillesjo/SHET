@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_choose_estimation">ChooseEstimationActivity</string>
     <string name="no_estimate">No estimate</string>
+    <string name="title_activity_scrym_sync">ScrymSyncActivity</string>
 
 </resources>

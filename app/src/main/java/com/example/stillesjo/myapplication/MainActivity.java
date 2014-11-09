@@ -22,8 +22,10 @@ import java.util.HashMap;
 
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    static final int    ESTIMATE_REQUEST = 1;
-    static final String ESTIMATE_RESULT = "ESTIMATE_RESULT";
+    public static final int    ESTIMATE_REQUEST = 1;
+    public static final int SYNC_REQUEST = 2;
+
+    public static final String ESTIMATE_RESULT = "ESTIMATE_RESULT";
 
     private ScrumAdapter mScrumAdapter;
     private HashMap<String, String> mAddressNameHash;
@@ -122,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 Log.i(this.getClass().getName(), "Got this result: " + data.getStringExtra(ESTIMATE_RESULT));
                 mScrumAdapter.updateEstimation(data.getStringExtra(ESTIMATE_RESULT),mCurrentUser.getAddress());
             } else {
-               Log.e(getClass().getName(),"data is null!");
+               Log.e(getClass().getName(), "data is null!");
             }
         }
     }
@@ -143,7 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
                 break;
             case R.id.scrum_sync_button:
-                mEstimationOngoing = !mEstimationOngoing;
+                startSyncActivity();
                 updateButtons();
                 break;
             default:
@@ -153,9 +155,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     }
 
     private void startEstimationActivity() {
-        Intent intent;
-        intent = new Intent(this, ChooseEstimationActivity.class);
-        startActivityForResult(intent, ESTIMATE_REQUEST);
+        startActivityForResult(new Intent(this, ChooseEstimationActivity.class), ESTIMATE_REQUEST);
+    }
+
+    private void startSyncActivity() {
+        startActivityForResult(new Intent(this, ScrumSyncActivity.class), SYNC_REQUEST);
     }
 
     private void updateButtons() {
