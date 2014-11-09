@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ScrumAdapter extends BaseAdapter{
 
-
+    private boolean mEstimationOngoing;
     private final LayoutInflater mInflater;
     private List<ScrumMember> mScrumMembers;
 
@@ -25,6 +25,7 @@ public class ScrumAdapter extends BaseAdapter{
         super();
         mScrumMembers = scrumMemberList;
         mInflater = inflater;
+        mEstimationOngoing = false;
     }
 
     @Override
@@ -46,27 +47,48 @@ public class ScrumAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ScrumMember member = (ScrumMember) getItem(position);
 
-        View returnview = convertView == null ? mInflater.inflate(R.layout.scrum_member_item, parent, false) : convertView;
-        TextView text = (TextView) returnview.findViewById(R.id.scrum_member_name);
-        TextView scrumPoints = (TextView) returnview.findViewById(R.id.scrum_menu_points);
-        ProgressBar bar = (ProgressBar) returnview.findViewById(R.id.scrum_progressBar);
-        ImageView syncImg = (ImageView) returnview.findViewById(R.id.scrum_sync_img);
+        View returnView = convertView == null ? mInflater.inflate(R.layout.scrum_member_item, parent, false) : convertView;
+        TextView text = (TextView) returnView.findViewById(R.id.scrum_member_name);
+        TextView scrumPoints = (TextView) returnView.findViewById(R.id.scrum_menu_points);
+        ProgressBar bar = (ProgressBar) returnView.findViewById(R.id.scrum_progressBar);
+        ImageView syncImg = (ImageView) returnView.findViewById(R.id.scrum_sync_img);
 
         // Set member text
-        text.setText(member.getName());
+        if (member.isCurrentUser())
+            text.setText(member.getName() + " (me) ");
+        else
+            text.setText(member.getName());
 
         // Set scrum point text
-        scrumPoints.setText(member.getEstimation());
+        scrumPoints.setText(mEstimationOngoing ? member.getEstimation() : ScrumMember.NO_ESTIMATE);
 
+        // Check whether the member is in sync
         boolean inSync = member.inSync();
-        bar.setVisibility(inSync ? ProgressBar.INVISIBLE :  ProgressBar.VISIBLE);
+        bar.setVisibility(inSync || !mEstimationOngoing ?         ProgressBar.INVISIBLE : ProgressBar.VISIBLE);
+        syncImg.setVisibility( !inSync || !mEstimationOngoing?    ImageView.INVISIBLE :   ImageView.VISIBLE);
 
-        syncImg.setVisibility(inSync ? ImageView.VISIBLE : ImageView.INVISIBLE);
-
-        return returnview;
+        return returnView;
     }
 
 
+    public void add(ScrumMember scrumMember) {
+        mScrumMembers.add(scrumMember);
+    }
+
+    public void updateEstimation(String estimation, String address) {
+        for (ScrumMember member : mScrumMembers) {
+            if (member.getAddress().equals(address)) {
+                member.setEstimation(estimation);
+                break;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setEstimationOngoing(boolean ongoing) {
+        mEstimationOngoing = ongoing;
+    }
 }

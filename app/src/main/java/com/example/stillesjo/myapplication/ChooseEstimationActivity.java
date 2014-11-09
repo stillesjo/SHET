@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class ChooseEstimationActivity extends Activity implements AdapterView.OnItemClickListener {
 
-    final static String[] SCRUM_POINTS = {"?","c","0", "1","2","3","5","8","13","20","40","100"};
+    final static String[] SCRUM_POINTS = {"???","Coffee break","0 points", "1 point","2 points","3 points","5 points","8 points","13 points","20 points","40 points","100 points"};
 
 
     @Override
