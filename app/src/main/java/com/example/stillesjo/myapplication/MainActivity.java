@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
     public static final int    ESTIMATE_REQUEST = 1;
     public static final int SYNC_REQUEST = 2;
@@ -44,15 +44,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         setContentView(R.layout.activity_main);
 
         mEstimationOngoing = false;
-
-        // Add listener to buttons
-        mEstimateButton = (Button) findViewById(R.id.choose_estimation_button);
-        mEstimateButton.setOnClickListener(this);
-
-        mSyncWithNewMembers = (Button) findViewById(R.id.scrum_sync_button);
-        mSyncWithNewMembers.setOnClickListener(this);
-
-        updateButtons();
 
         // Initiate hash
         mAddressNameHash = new HashMap<String, String>();
@@ -108,13 +99,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
+        handleEvent(item.getItemId());
         return super.onOptionsItemSelected(item);
     }
 
@@ -134,12 +120,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     protected void onResume() {
         super.onResume();
-        updateButtons();
     }
 
-    private void handleEvent(View v) {
-        switch (v.getId()) {
-            case R.id.choose_estimation_button:
+    private void handleEvent(int id) {
+        switch (id) {
+            case R.id.action_estimate:
             case R.id.scrum_member_list:
                 //if (!mEstimationOngoing)
                 //    break;
@@ -150,12 +135,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 startEstimationActivity();
 
                 break;
-            case R.id.scrum_sync_button:
+            case R.id.action_add_members:
                 startSyncActivity();
-                updateButtons();
+                break;
+            case R.id.action_settings:
                 break;
             default:
-                Log.i(getClass().getName(),"Unknown view for event. Event ID: " + v.getId());
+                Log.i(getClass().getName(),"Unknown view for event. Event ID: " + Integer.toString(id));
 
         }
     }
@@ -168,11 +154,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         Intent intent = new Intent(this, ScrumSyncActivity.class);
         intent.putExtra(USERNAME_KEY,mUsername);
         startActivityForResult(intent, SYNC_REQUEST);
-    }
-
-    private void updateButtons() {
-        mEstimateButton.setEnabled(true);
-        mSyncWithNewMembers.setEnabled(!mEstimationOngoing);
     }
 
     /**
@@ -204,7 +185,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         } else {
             // Check pre-conditions
 
-            updateButtons();
             startEstimationActivity();
         }
     }
@@ -218,13 +198,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     }
 
     @Override
-    public void onClick(View v) {
-        handleEvent(v);
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(getClass().getName(),"onItemClick");
-        handleEvent(parent);
+        handleEvent(parent.getId());
     }
 }

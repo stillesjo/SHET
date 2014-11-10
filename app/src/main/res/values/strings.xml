@@ -7,5 +7,7 @@
     <string name="title_activity_choose_estimation">ChooseEstimationActivity</string>
     <string name="no_estimate">No estimate</string>
     <string name="title_activity_scrym_sync">ScrymSyncActivity</string>
+    <string name="action_add_members">Add scrum members</string>
+    <string name="action_estimate">Estimate</string>
 
 </resources>
