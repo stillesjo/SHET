@@ -26,6 +26,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     public static final int SYNC_REQUEST = 2;
 
     public static final String ESTIMATE_RESULT = "ESTIMATE_RESULT";
+    public static final String SCRUM_SERVICE_NAME = "_scrumestimation._tcp.";
+    public static final String USERNAME_KEY = "USERNAME_KEY";
 
     private ScrumAdapter mScrumAdapter;
     private HashMap<String, String> mAddressNameHash;
@@ -129,7 +131,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateButtons();
+    }
 
     private void handleEvent(View v) {
         switch (v.getId()) {
@@ -159,7 +165,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     }
 
     private void startSyncActivity() {
-        startActivityForResult(new Intent(this, ScrumSyncActivity.class), SYNC_REQUEST);
+        Intent intent = new Intent(this, ScrumSyncActivity.class);
+        intent.putExtra(USERNAME_KEY,mUsername);
+        startActivityForResult(intent, SYNC_REQUEST);
     }
 
     private void updateButtons() {

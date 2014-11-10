@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,11 @@ public class ChooseEstimationActivity extends Activity implements AdapterView.On
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView _view = (TextView) view;
         Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(null,null);
+        Parcel parc = Parcel.obtain();
+        parc.writeValue("stuff");
+
         intent.putExtra(MainActivity.ESTIMATE_RESULT,_view.getText());
         setResult(MainActivity.ESTIMATE_REQUEST,intent);
 
