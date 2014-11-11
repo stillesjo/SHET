@@ -5,8 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.stillesjo.shet.R;
+
+import shet.adapters.EstimationAdapter;
 
 public class SoloEstimationFragment extends BaseFragment {
     private static final String SOLO_TAG = "SHET.SoloEstimationFragment";
@@ -27,7 +31,12 @@ public class SoloEstimationFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i(SOLO_TAG,"On create view");
-        return inflater.inflate(R.layout.fragment_solo_estimation, container, false);
+        View view = inflater.inflate(R.layout.fragment_solo_estimation, container, false);
+
+        ListView list = (ListView)view.findViewById(R.id.estimate_list);
+        list.setAdapter(new EstimationAdapter(getActivity().getLayoutInflater()));
+
+        return view;
     }
 
 
