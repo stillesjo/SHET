@@ -2,25 +2,34 @@ package com.example.stillesjo.myapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.nsd.NsdManager;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+public class MainActivity extends Activity {
 
     public static final int    ESTIMATE_REQUEST = 1;
     public static final int SYNC_REQUEST = 2;
@@ -28,64 +37,69 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     public static final String ESTIMATE_RESULT = "ESTIMATE_RESULT";
     public static final String SCRUM_SERVICE_NAME = "_scrumestimation._tcp.";
     public static final String USERNAME_KEY = "USERNAME_KEY";
+    private static final String MAIN_ACTIVITY_TAG = "SHET.MainActivity";
 
-    private ScrumAdapter mScrumAdapter;
-    private HashMap<String, String> mAddressNameHash;
-    private String mAddress;
-    private String mUsername;
-    private ScrumMember mCurrentUser;
-    private boolean mEstimationOngoing;
-    private Button mEstimateButton;
-    private Button mSyncWithNewMembers;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private String[] mDrawerChoices;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTitle = mDrawerTitle = getTitle();
 
-        mEstimationOngoing = false;
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_main);
 
-        // Initiate hash
-        mAddressNameHash = new HashMap<String, String>();
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu();
+            }
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu();
+            }
+        };
 
-        // Create a list view with a scrum adapter
-        ListView memberList = (ListView) findViewById(R.id.scrum_member_list);
-        ArrayList<ScrumMember> members = new ArrayList<ScrumMember>();
 
-        mScrumAdapter = new ScrumAdapter(getLayoutInflater(),members);
-        memberList.setAdapter(mScrumAdapter);
-        memberList.setOnItemClickListener(this);
 
-        // Adds current user to list
-        addCurrentUser();
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        getActionBar().setHomeButtonEnabled(true);
+
+        mDrawerChoices = getResources().getStringArray(R.array.choice_array);
+        mDrawerList = (ListView) findViewById(R.id.drawer_list);
+        mDrawerList.setOnItemClickListener(new DrawerClickListener());
+
+
+        SortedMap<String, Integer> sortedMap = new TreeMap<String, Integer>();
+        sortedMap.put(getResources().getString(R.string.about_application),new Integer(R.drawable.ic_action_about));
+        sortedMap.put(getResources().getString(R.string.estimate_yourself),new Integer(R.drawable.ic_action_person));
+        sortedMap.put(getResources().getString(R.string.estimate_others), new Integer(R.drawable.ic_action_group));
+
+        DrawerAdapter adapter = new DrawerAdapter(getLayoutInflater(),sortedMap, getResources().getStringArray(R.array.choice_array));
+
+        mDrawerList.setAdapter(adapter);
+
     }
 
-    /**
-     * Add the current user to the hash and list of users
-     */
-    private void addCurrentUser() {
-        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-        mUsername = adapter.getName();
-        mAddress = adapter.getAddress();
-        if (mUsername == null)
-            mUsername = mAddress;
-        mCurrentUser = new ScrumMember(mUsername, mAddress, true);
-        addNewUser(mCurrentUser);
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // return super.onPrepareOptionsMenu(menu);
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_add_members).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_estimate).setVisible(!drawerOpen);
+        return true;
     }
-
-    /**
-     * Adds a new member to the hash and to the ScrumAdapter
-     * @param newMember
-     */
-    private void addNewUser(ScrumMember newMember) {
-        if (mAddressNameHash.containsKey(newMember.getAddress())) {
-            Log.e(getClass().getName(), String.format("Found duplicates of users in the hash. Name: %s, Address: %s", newMember.getName(), newMember.getAddress()));
-        } else {
-            mAddressNameHash.put(newMember.getAddress(), newMember.getName());
-            mScrumAdapter.add(newMember);
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,111 +109,64 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        handleEvent(item.getItemId());
-        return super.onOptionsItemSelected(item);
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ESTIMATE_REQUEST) {
-            Log.i(this.getClass().getName(),"Got result from estimate request.");
-            if (data != null) {
-                Log.i(this.getClass().getName(), "Got this result: " + data.getStringExtra(ESTIMATE_RESULT));
-                mScrumAdapter.updateEstimation(data.getStringExtra(ESTIMATE_RESULT),mCurrentUser.getAddress());
-            } else {
-               Log.e(getClass().getName(), "data is null!");
-            }
-        }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            Log.i("XALEOSK","Stuff happens here...");
+            return true;
+        }
+        Log.i("XALEOSK", "Stuff DOESN'T happen here");
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
     }
 
-    private void handleEvent(int id) {
-        switch (id) {
-            case R.id.action_estimate:
-            case R.id.scrum_member_list:
-                //if (!mEstimationOngoing)
-                //    break;
-                if (!mEstimationOngoing) {
-                    initiateEstimation();
-                    break;
-                }
-                startEstimationActivity();
 
+
+    private class DrawerClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        Log.i("XALEOS","Got position: " + Integer.toString(position));
+        switch(position) {
+            case 0:
+                Log.i(MAIN_ACTIVITY_TAG,"Starting estimate self fragment");
                 break;
-            case R.id.action_add_members:
-                startSyncActivity();
+            case 1:
+                Log.i(MAIN_ACTIVITY_TAG,"Startime estimate with others fragment.");
                 break;
-            case R.id.action_settings:
+            case 2:
+                Log.i(MAIN_ACTIVITY_TAG,"Starting about application fragment.");
                 break;
             default:
-                Log.i(getClass().getName(),"Unknown view for event. Event ID: " + Integer.toString(id));
-
+                Log.e(MAIN_ACTIVITY_TAG,"Unknown or unimplemented list item: " + Integer.toString(position));
+                break;
         }
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+
     }
 
-    private void startEstimationActivity() {
-        startActivityForResult(new Intent(this, ChooseEstimationActivity.class), ESTIMATE_REQUEST);
-    }
 
-    private void startSyncActivity() {
-        Intent intent = new Intent(this, ScrumSyncActivity.class);
-        intent.putExtra(USERNAME_KEY,mUsername);
-        startActivityForResult(intent, SYNC_REQUEST);
-    }
-
-    /**
-     * Initiate estimation. Will first start a dialog asking the user whether to go ahead and start with the
-     */
-    private void initiateEstimation() {
-        if (!checkConnectedToUsers()) {
-            Log.e(getClass().getName(), "Preconditions aren't met, can't start estimation.");
-            Toast.makeText(this, "Not connected to any user, cannot start estimation.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!mEstimationOngoing) {
-            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case DialogInterface.BUTTON_POSITIVE:
-                            mEstimationOngoing = true;
-                            initiateEstimation();
-                            break;
-                        default:
-                            Log.i("MainActivity", "Won't start estimation");
-                            break;
-                    }
-                }
-            };
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Want to start estimation?").setPositiveButton("Yes", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
-        } else {
-            // Check pre-conditions
-
-            startEstimationActivity();
-        }
-    }
-
-    /**
-     * Returns true if you're connected to other users.
-     * @return
-     */
-    private boolean checkConnectedToUsers() {
-        return mAddressNameHash.size() > 1;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i(getClass().getName(),"onItemClick");
-        handleEvent(parent.getId());
-    }
 }
