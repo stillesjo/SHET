@@ -1,5 +1,6 @@
 package shet.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,8 @@ public class EstimationAdapter extends BaseAdapter{
     private final String[] mEstimations;
     private final LayoutInflater mInflater;
 
-    public EstimationAdapter(LayoutInflater inflater) {
-        mEstimations = new String[] {"hej","svejs"};
+    public EstimationAdapter(LayoutInflater inflater, String[] strings) {
+        mEstimations = strings;
         mInflater = inflater;
     }
 

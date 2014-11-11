@@ -95,6 +95,8 @@ public class MainActivity extends FragmentActivity implements BaseFragment.OnFra
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // return super.onPrepareOptionsMenu(menu);
+        if (super.onPrepareOptionsMenu(menu))
+            return true;
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_add_members).setVisible(!drawerOpen);
         menu.findItem(R.id.action_estimate).setVisible(!drawerOpen);

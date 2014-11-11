@@ -5,4 +5,18 @@
         <item>@string/estimate_others</item>
         <item>@string/about_application</item>
     </string-array>
+    <string-array name = "estimation_array">
+        <item>1 point</item>
+        <item>2 points</item>
+        <item>3 points</item>
+        <item>5 points</item>
+        <item>8 points</item>
+        <item>13 points</item>
+        <item>20 points</item>
+        <item>40 points</item>
+        <item>100 points</item>
+        <item>\???</item>
+        <item>Coffe break!</item>
+    </string-array>
+
 </resources>
