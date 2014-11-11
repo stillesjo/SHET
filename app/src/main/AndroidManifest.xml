@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stillesjo.myapplication" >
+    package="com.example.stillesjo.shet" >
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.stillesjo.myapplication.MainActivity"
+            android:name="com.example.stillesjo.shet.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.stillesjo.myapplication.ChooseEstimationActivity"
+            android:name="com.example.stillesjo.shet.ChooseEstimationActivity"
             android:label="@string/title_activity_choose_estimation" >
         </activity>
         <activity
-            android:name=".ScrumSyncActivity"
+            android:name="com.example.stillesjo.shet.ScrumSyncActivity"
             android:label="@string/title_activity_scrym_sync" >
         </activity>
     </application>

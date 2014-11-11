@@ -1,4 +1,4 @@
-package com.example.stillesjo.myapplication;
+package com.example.stillesjo.shet;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

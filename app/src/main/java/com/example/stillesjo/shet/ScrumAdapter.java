@@ -1,7 +1,5 @@
-package com.example.stillesjo.myapplication;
+package com.example.stillesjo.shet;
 
-import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

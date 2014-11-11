@@ -1,15 +1,12 @@
-package com.example.stillesjo.myapplication;
+package com.example.stillesjo.shet;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.bluetooth.BluetoothAdapter;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.nsd.NsdManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -18,18 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements BaseFragment.OnFragmentInteractionListener {
 
     public static final int    ESTIMATE_REQUEST = 1;
     public static final int SYNC_REQUEST = 2;
@@ -69,7 +61,9 @@ public class MainActivity extends Activity {
             }
         };
 
-
+        AboutApplicationFragment startFragment = AboutApplicationFragment.newInstance(getIntent().getExtras());
+        startFragment.setArguments(getIntent().getExtras());
+        getFragmentManager().beginTransaction().add(R.id.drawer_frame,startFragment).commit();
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -138,6 +132,10 @@ public class MainActivity extends Activity {
         super.onResume();
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.i(MAIN_ACTIVITY_TAG,"Got fragment interaction.. yippi...");
+    }
 
 
     private class DrawerClickListener implements ListView.OnItemClickListener {
@@ -148,17 +146,23 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void startFragment(Fragment fragment) {
+        getFragmentManager().beginTransaction().replace(R.id.drawer_frame,fragment).commit();
+    }
+
     private void selectItem(int position) {
         Log.i("XALEOS","Got position: " + Integer.toString(position));
         switch(position) {
             case 0:
                 Log.i(MAIN_ACTIVITY_TAG,"Starting estimate self fragment");
+                startFragment(SoloEstimationFragment.newInstance(getIntent().getExtras()));
                 break;
             case 1:
                 Log.i(MAIN_ACTIVITY_TAG,"Startime estimate with others fragment.");
                 break;
             case 2:
                 Log.i(MAIN_ACTIVITY_TAG,"Starting about application fragment.");
+                startFragment(AboutApplicationFragment.newInstance(getIntent().getExtras()));
                 break;
             default:
                 Log.e(MAIN_ACTIVITY_TAG,"Unknown or unimplemented list item: " + Integer.toString(position));
