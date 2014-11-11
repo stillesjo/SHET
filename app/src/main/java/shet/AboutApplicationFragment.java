@@ -1,10 +1,12 @@
-package com.example.stillesjo.shet;
+package shet;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.stillesjo.shet.R;
 
 public class AboutApplicationFragment extends BaseFragment {
     private static final String ABOUT_TAG = "SHET.AboutApplicationFragment";

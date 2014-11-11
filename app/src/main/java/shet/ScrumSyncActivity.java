@@ -1,4 +1,4 @@
-package com.example.stillesjo.shet;
+package shet;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+
+import com.example.stillesjo.shet.R;
 
 import java.io.IOException;
 import java.net.ServerSocket;

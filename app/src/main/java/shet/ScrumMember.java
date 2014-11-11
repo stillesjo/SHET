@@ -1,4 +1,4 @@
-package com.example.stillesjo.shet;
+package shet;
 
 /**
  * Created by stillesjo on 14-11-08.

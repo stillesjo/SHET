@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.stillesjo.shet.MainActivity"
+            android:name="shet.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.stillesjo.shet.ChooseEstimationActivity"
+            android:name="shet.ChooseEstimationActivity"
             android:label="@string/title_activity_choose_estimation" >
         </activity>
         <activity
-            android:name="com.example.stillesjo.shet.ScrumSyncActivity"
+            android:name="shet.ScrumSyncActivity"
             android:label="@string/title_activity_scrym_sync" >
         </activity>
     </application>

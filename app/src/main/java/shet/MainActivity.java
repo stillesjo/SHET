@@ -1,7 +1,6 @@
-package com.example.stillesjo.shet;
+package shet;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.stillesjo.shet.R;
 
 import java.util.SortedMap;
 import java.util.TreeMap;
