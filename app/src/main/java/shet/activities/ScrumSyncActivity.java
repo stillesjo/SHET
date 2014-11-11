@@ -1,4 +1,4 @@
-package shet;
+package shet.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
+
+import shet.activities.MainActivity;
 
 
 public class ScrumSyncActivity extends Activity {

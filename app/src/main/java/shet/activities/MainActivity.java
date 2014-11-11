@@ -1,4 +1,4 @@
-package shet;
+package shet.activities;
 
 import android.app.Fragment;
 import android.content.res.Configuration;
@@ -20,6 +20,11 @@ import com.example.stillesjo.shet.R;
 
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import shet.adapters.DrawerAdapter;
+import shet.fragments.AboutApplicationFragment;
+import shet.fragments.BaseFragment;
+import shet.fragments.SoloEstimationFragment;
 
 
 public class MainActivity extends FragmentActivity implements BaseFragment.OnFragmentInteractionListener {

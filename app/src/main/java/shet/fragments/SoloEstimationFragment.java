@@ -1,4 +1,4 @@
-package shet;
+package shet.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,16 +8,16 @@ import android.view.ViewGroup;
 
 import com.example.stillesjo.shet.R;
 
-public class AboutApplicationFragment extends BaseFragment {
-    private static final String ABOUT_TAG = "SHET.AboutApplicationFragment";
+public class SoloEstimationFragment extends BaseFragment {
+    private static final String SOLO_TAG = "SHET.SoloEstimationFragment";
 
-    public static AboutApplicationFragment newInstance(Bundle bundle) {
-        AboutApplicationFragment fragment = new AboutApplicationFragment();
+    public static SoloEstimationFragment newInstance(Bundle bundle) {
+        SoloEstimationFragment fragment = new SoloEstimationFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    public AboutApplicationFragment() {
+    public SoloEstimationFragment() {
         // Required empty public constructor
     }
 
@@ -26,8 +26,8 @@ public class AboutApplicationFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.i(ABOUT_TAG,"On create view");
-        return inflater.inflate(R.layout.fragment_about_application, container, false);
+        Log.i(SOLO_TAG,"On create view");
+        return inflater.inflate(R.layout.fragment_solo_estimation, container, false);
     }
 
 

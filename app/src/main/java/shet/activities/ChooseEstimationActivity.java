@@ -1,4 +1,4 @@
-package shet;
+package shet.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.stillesjo.shet.R;
+
+import shet.activities.MainActivity;
 
 
 public class ChooseEstimationActivity extends Activity implements AdapterView.OnItemClickListener {

@@ -1,4 +1,4 @@
-package shet;
+package shet.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.stillesjo.shet.R;
 
 import java.util.List;
+
+import shet.ScrumMember;
 
 /**
  * Created by stillesjo on 14-11-08.

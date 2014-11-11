@@ -1,4 +1,4 @@
-package shet;
+package shet.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
