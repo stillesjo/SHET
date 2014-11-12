@@ -43,4 +43,11 @@ public class EstimationAdapter extends BaseAdapter{
         view.setText(mEstimations[position]);
         return view;
     }
+
+    public String getString(int position) {
+        if (position > getCount()) {
+            return "???";
+        }
+        return mEstimations[position];
+    }
 }

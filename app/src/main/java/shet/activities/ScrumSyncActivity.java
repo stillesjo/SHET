@@ -22,7 +22,11 @@ import java.util.List;
 
 import shet.activities.MainActivity;
 
+/*
 
+TODO Rework this class!!
+
+ */
 public class ScrumSyncActivity extends Activity {
 
     private String mUsername;
@@ -53,7 +57,7 @@ public class ScrumSyncActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String username = extras.getString(MainActivity.USERNAME_KEY);
+            String username = extras.getString("STUFF_HERE");
             if (username != null)
                 mUsername = username;
         }

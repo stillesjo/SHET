@@ -17,7 +17,7 @@ import shet.ScrumMember;
 /**
  * Created by stillesjo on 14-11-08.
  */
-public class ScrumAdapter extends BaseAdapter{
+public class ScrumAdapter extends BaseAdapter {
 
     private boolean mEstimationOngoing;
     private final LayoutInflater mInflater;
@@ -89,6 +89,8 @@ public class ScrumAdapter extends BaseAdapter{
         }
         notifyDataSetChanged();
     }
+
+
 
     public void setEstimationOngoing(boolean ongoing) {
         mEstimationOngoing = ongoing;
