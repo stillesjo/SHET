@@ -1,16 +1,10 @@
 package shet.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 

@@ -13,8 +13,8 @@
     <string name="drawer_close">Close</string>
     <string name="drawer_open">Open</string>
 
-    <string name="estimate_yourself">Estimate yourself</string>
-    <string name="estimate_others">Estimate with others</string>
+    <string name="estimate_yourself">Simple estimation</string>
+    <string name="estimate_others">Group estimation</string>
     <string name="about_application">About application</string>
 
 </resources>

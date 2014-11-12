@@ -1,12 +1,17 @@
 package shet.activities;
 
+import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,48 +42,59 @@ public class MainActivity extends FragmentActivity implements BaseFragment.OnFra
     public static final String USERNAME_KEY = "USERNAME_KEY";
     private static final String MAIN_ACTIVITY_TAG = "SHET.MainActivity";
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
     private String[] mDrawerChoices;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private ActionBarDrawerToggle mDrawerToggle;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTitle = mDrawerTitle = getTitle();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_main);
+        mViewPager = (ViewPager) findViewById(R.id.pager_main);
+        mViewPager.setAdapter(new ScrumFragmentPagerAdapter(getSupportFragmentManager()));
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+        ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu();
-            }
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu();
+            public void onPageSelected(int position) {
+                getActionBar().setSelectedNavigationItem(position);
             }
         };
 
+
+        mViewPager.setOnPageChangeListener(onPageChangeListener);
+
+        mTitle = mDrawerTitle = getTitle();
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar.TabListener myListener = new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                mViewPager.setCurrentItem(tab.getPosition(), true);
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {}
+        };
+        actionBar.addTab(actionBar.newTab().setText(getResources().getString(R.string.estimate_yourself)).setIcon(R.drawable.ic_action_person).setTabListener(myListener));
+        actionBar.addTab(actionBar.newTab().setText(getResources().getString(R.string.estimate_others)).setIcon(R.drawable.ic_action_add_group).setTabListener(myListener));
+
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+
         AboutApplicationFragment startFragment = AboutApplicationFragment.newInstance(getIntent().getExtras());
         startFragment.setArguments(getIntent().getExtras());
-        getFragmentManager().beginTransaction().add(R.id.drawer_frame,startFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.pager_main,startFragment);
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getActionBar().setHomeButtonEnabled(true);
 
         mDrawerChoices = getResources().getStringArray(R.array.choice_array);
-        mDrawerList = (ListView) findViewById(R.id.drawer_list);
-        mDrawerList.setOnItemClickListener(new DrawerClickListener());
+
 
 
         SortedMap<String, Integer> sortedMap = new TreeMap<String, Integer>();
@@ -86,9 +102,6 @@ public class MainActivity extends FragmentActivity implements BaseFragment.OnFra
         sortedMap.put(getResources().getString(R.string.estimate_yourself),new Integer(R.drawable.ic_action_person));
         sortedMap.put(getResources().getString(R.string.estimate_others), new Integer(R.drawable.ic_action_group));
 
-        DrawerAdapter adapter = new DrawerAdapter(getLayoutInflater(),sortedMap, getResources().getStringArray(R.array.choice_array));
-
-        mDrawerList.setAdapter(adapter);
 
     }
 
@@ -97,9 +110,6 @@ public class MainActivity extends FragmentActivity implements BaseFragment.OnFra
         // return super.onPrepareOptionsMenu(menu);
         if (super.onPrepareOptionsMenu(menu))
             return true;
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_add_members).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_estimate).setVisible(!drawerOpen);
         return true;
     }
 
@@ -113,22 +123,15 @@ public class MainActivity extends FragmentActivity implements BaseFragment.OnFra
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            Log.i("XALEOSK","Stuff happens here...");
-            return true;
-        }
-        Log.i("XALEOSK", "Stuff DOESN'T happen here");
         return super.onOptionsItemSelected(item);
 
     }
@@ -160,24 +163,33 @@ public class MainActivity extends FragmentActivity implements BaseFragment.OnFra
 
     private void selectItem(int position) {
         Log.i("XALEOS","Got position: " + Integer.toString(position));
-        switch(position) {
-            case 0:
-                Log.i(MAIN_ACTIVITY_TAG,"Starting estimate self fragment");
-                startFragment(SoloEstimationFragment.newInstance(getIntent().getExtras()));
-                break;
-            case 1:
-                Log.i(MAIN_ACTIVITY_TAG,"Startime estimate with others fragment.");
-                break;
-            case 2:
-                Log.i(MAIN_ACTIVITY_TAG,"Starting about application fragment.");
-                startFragment(AboutApplicationFragment.newInstance(getIntent().getExtras()));
-                break;
-            default:
-                Log.e(MAIN_ACTIVITY_TAG,"Unknown or unimplemented list item: " + Integer.toString(position));
-                break;
-        }
-        mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
 
+    private class ScrumFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+        public ScrumFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            switch(position) {
+                case 0:
+                    return SoloEstimationFragment.newInstance(getIntent().getExtras());
+                case 1:
+                    return AboutApplicationFragment.newInstance(getIntent().getExtras());
+                default:
+                    Log.i(MAIN_ACTIVITY_TAG, "Unknown choice... " + Integer.toString(position));
+                    break;
+
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 
 
