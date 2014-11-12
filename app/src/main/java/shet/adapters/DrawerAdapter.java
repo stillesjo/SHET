@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.stillesjo.shet.R;
-
 import java.util.SortedMap;
+
+import still.interactive.shet.R;
 
 /**
  * Created by stillesjo on 14-11-11.

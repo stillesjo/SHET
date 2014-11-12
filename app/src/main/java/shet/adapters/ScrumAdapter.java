@@ -8,11 +8,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.stillesjo.shet.R;
-
 import java.util.List;
 
 import shet.ScrumMember;
+import still.interactive.shet.R;
 
 /**
  * Created by stillesjo on 14-11-08.

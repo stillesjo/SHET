@@ -13,14 +13,12 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.stillesjo.shet.R;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
-import shet.activities.MainActivity;
+import still.interactive.shet.R;
 
 /*
 

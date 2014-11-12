@@ -7,7 +7,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.stillesjo.shet.R;
+import still.interactive.shet.R;
+
 
 public class ScrumCardActivity extends Activity {
 

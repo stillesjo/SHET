@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.stillesjo.shet.R;
+import still.interactive.shet.R;
 
 /**
  * A simple {@link Fragment} subclass.

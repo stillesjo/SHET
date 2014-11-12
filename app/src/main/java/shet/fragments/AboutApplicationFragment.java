@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.stillesjo.shet.R;
+import still.interactive.shet.R;
 
 public class AboutApplicationFragment extends BaseFragment {
     private static final String ABOUT_TAG = "SHET.AboutApplicationFragment";

@@ -1,23 +1,18 @@
 package shet.fragments;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.stillesjo.shet.R;
-
 import shet.activities.ScrumCardActivity;
 import shet.adapters.EstimationAdapter;
+import still.interactive.shet.R;
 
 public class SoloEstimationFragment extends BaseFragment {
     private static final String SOLO_TAG = "SHET.SoloEstimationFragment";

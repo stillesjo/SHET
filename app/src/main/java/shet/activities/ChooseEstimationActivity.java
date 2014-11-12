@@ -12,9 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.stillesjo.shet.R;
 
-import shet.activities.MainActivity;
+import still.interactive.shet.R;
 
 
 public class ChooseEstimationActivity extends Activity implements AdapterView.OnItemClickListener {

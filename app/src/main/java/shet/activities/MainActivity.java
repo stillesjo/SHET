@@ -1,6 +1,5 @@
 package shet.activities;
 
-import android.app.Fragment;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,17 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.example.stillesjo.shet.R;
 
 import shet.fragments.AboutApplicationFragment;
 import shet.fragments.BaseFragment;
 import shet.fragments.GroupEstimationFragment;
 import shet.fragments.SoloEstimationFragment;
+import still.interactive.shet.R;
 
 
 public class MainActivity extends FragmentActivity implements BaseFragment.OnFragmentInteractionListener {
