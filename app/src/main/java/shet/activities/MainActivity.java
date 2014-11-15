@@ -13,7 +13,6 @@ import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import shet.fragments.AboutApplicationFragment;
 import shet.fragments.BaseFragment;
 import shet.fragments.GroupEstimationFragment;
 import shet.fragments.SoloEstimationFragment;
@@ -35,7 +34,7 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AboutApplicationFragment startFragment = AboutApplicationFragment.newInstance(getIntent().getExtras());
+        SoloEstimationFragment startFragment = SoloEstimationFragment.newInstance(getIntent().getExtras());
         startFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.pager_main, startFragment);
 
