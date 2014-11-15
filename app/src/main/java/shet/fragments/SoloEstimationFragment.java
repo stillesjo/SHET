@@ -38,7 +38,7 @@ public class SoloEstimationFragment extends BaseFragment {
         setHasOptionsMenu(true);
         ListView list = (ListView)view.findViewById(R.id.estimate_list);
 
-        mAdapter = new EstimationAdapter(getActivity().getLayoutInflater(), getActivity().getResources().getStringArray(R.array.estimation_array));
+        mAdapter = new EstimationAdapter(getActivity().getLayoutInflater(), getActivity().getResources().getStringArray(R.array.estimation_array), getResources());
 
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(new SoloItemClickListener());
@@ -60,7 +60,6 @@ public class SoloEstimationFragment extends BaseFragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getActivity(), ScrumCardActivity.class);
             String string = mAdapter.getString(position);
-            Log.i("XALEOSK","String: " + string);
             if (string.toUpperCase().indexOf("COFFEE") >= 0) {
                 // Start activity with coffee cup
                 intent.putExtra(ScrumCardActivity.COFFEE_CUP,"TRUE");

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 import still.interactive.shet.R;
 
 
-public class ChooseEstimationActivity extends Activity implements AdapterView.OnItemClickListener {
+public class ChooseEstimationActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     final static String[] SCRUM_POINTS = {"???","Coffee break","0 points", "1 point","2 points","3 points","5 points","8 points","13 points","20 points","40 points","100 points"};
 

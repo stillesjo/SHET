@@ -2,6 +2,8 @@ package shet.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -10,7 +12,7 @@ import android.widget.TextView;
 import still.interactive.shet.R;
 
 
-public class ScrumCardActivity extends Activity {
+public class ScrumCardActivity extends ActionBarActivity {
 
     public static final String COFFEE_CUP = "COFFEE";
     public static final String ESTIMATE_STRING = "ESTIMATION";
@@ -19,6 +21,8 @@ public class ScrumCardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrum_card);
+        ActionBar bar = getSupportActionBar();
+        bar.hide();
 
         String estimation = getIntent().getStringExtra(ESTIMATE_STRING);
         String coffee = getIntent().getStringExtra(COFFEE_CUP);

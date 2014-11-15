@@ -1,5 +1,6 @@
 package shet.adapters;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,12 @@ public class EstimationAdapter extends BaseAdapter{
 
     private final String[] mEstimations;
     private final LayoutInflater mInflater;
+    private final Resources mResources;
 
-    public EstimationAdapter(LayoutInflater inflater, String[] strings) {
+    public EstimationAdapter(LayoutInflater inflater, String[] strings, Resources resources) {
         mEstimations = strings;
         mInflater = inflater;
+        mResources = resources;
     }
 
     @Override
@@ -41,6 +44,10 @@ public class EstimationAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView view = convertView == null ? (TextView) mInflater.inflate(R.layout.estimation_item, parent, false) : (TextView) convertView;
         view.setText(mEstimations[position]);
+        if (position % 2 == 0) {
+            // FIXME Another color could be wise here. Might look as though the item is selected
+            view.setBackgroundColor(mResources.getColor(R.color.estimation_list_secondary_color));
+        }
         return view;
     }
 

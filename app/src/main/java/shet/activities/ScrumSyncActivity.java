@@ -7,6 +7,7 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ import still.interactive.shet.R;
 TODO Rework this class!!
 
  */
-public class ScrumSyncActivity extends Activity {
+public class ScrumSyncActivity extends ActionBarActivity {
 
     private String mUsername;
     private ProgressBar mProgressBar;
