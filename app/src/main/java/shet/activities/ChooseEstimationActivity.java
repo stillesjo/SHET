@@ -58,16 +58,10 @@ public class ChooseEstimationActivity extends ActionBarActivity implements Adapt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TextView _view = (TextView) view;
         Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(null,null);
-        Parcel parc = Parcel.obtain();
-        parc.writeValue("stuff");
+        intent.putExtra(MainActivity.ESTIMATE_RESULT,((TextView)view).getText());
 
-        intent.putExtra(MainActivity.ESTIMATE_RESULT,_view.getText());
         setResult(MainActivity.ESTIMATE_REQUEST,intent);
-
         finish();
     }
 }

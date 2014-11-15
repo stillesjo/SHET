@@ -43,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
         mViewPager.setAdapter(new ScrumFragmentPagerAdapter(getSupportFragmentManager()));
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.pager_slider);
+        tabs.setShouldExpand(true);
         tabs.setOnPageChangeListener(new ScrumOnPageChangeListener());
         tabs.setViewPager(mViewPager);
 
@@ -143,6 +144,5 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
         @Override
         public void onPageScrollStateChanged(int state) {}
     }
-
 
 }

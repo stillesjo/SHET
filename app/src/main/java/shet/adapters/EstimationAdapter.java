@@ -44,10 +44,6 @@ public class EstimationAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView view = convertView == null ? (TextView) mInflater.inflate(R.layout.estimation_item, parent, false) : (TextView) convertView;
         view.setText(mEstimations[position]);
-        if (position % 2 == 0) {
-            // FIXME Another color could be wise here. Might look as though the item is selected
-            view.setBackgroundColor(mResources.getColor(R.color.estimation_list_secondary_color));
-        }
         return view;
     }
 
