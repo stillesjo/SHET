@@ -64,15 +64,17 @@ public class SoloEstimationFragment extends BaseFragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getActivity(), ScrumCardActivity.class);
             String string = mAdapter.getString(position);
-            if (getArguments().getBoolean(MainActivity.SILENT_MODE_STRING)) {
+            if (getArguments() != null && getArguments().getBoolean(MainActivity.SILENT_MODE_STRING)) {
                 Bundle bundle = new Bundle();
                 bundle.putString(MainActivity.ESTIMATE_RESULT,string);
                 ((OnFragmentInteractionListener)getActivity()).onFragmentInteraction(bundle);
                 return;
             }
-            if (string.toUpperCase().indexOf("COFFEE") >= 0) {
+            if (string.equals(getActivity().getResources().getString(R.string.coffe_string))) {
                 // Start activity with coffee cup
                 intent.putExtra(ScrumCardActivity.COFFEE_CUP,"TRUE");
+            } else if (string.equals(getActivity().getResources().getString(R.string.no_points_string))){
+                intent.putExtra(ScrumCardActivity.ESTIMATE_STRING, "0");
             } else {
                 if (string.toLowerCase().indexOf("point") > 0) {
                     string = string.substring(0,string.indexOf(" "));

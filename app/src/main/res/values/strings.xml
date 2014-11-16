@@ -18,5 +18,6 @@
     <string name="estimate_button_text">Initiate estimation</string>
     <string name="title_activity_scrum_card">ScrumCardActivity</string>
     <string name="no_points_string">No points</string>
+    <string name="coffe_string">Coffee break!</string>
 
 </resources>

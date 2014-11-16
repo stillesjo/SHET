@@ -17,7 +17,7 @@
         <item>40 points</item>
         <item>100 points</item>
         <item>\???</item>
-        <item>Coffee break!</item>
+        <item>@string/coffe_string</item>
     </string-array>
 
 </resources>
