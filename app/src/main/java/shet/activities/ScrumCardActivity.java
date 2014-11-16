@@ -16,6 +16,7 @@ public class ScrumCardActivity extends ActionBarActivity {
 
     public static final String COFFEE_CUP = "COFFEE";
     public static final String ESTIMATE_STRING = "ESTIMATION";
+    public static final String COFFEE_CUP_TRUE = "TRUE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +26,10 @@ public class ScrumCardActivity extends ActionBarActivity {
         bar.hide();
 
         String estimation = getIntent().getStringExtra(ESTIMATE_STRING);
-        String coffee = getIntent().getStringExtra(COFFEE_CUP);
+        boolean coffee = getIntent().getStringExtra(COFFEE_CUP) != null;
 
         ImageView coffeeImage = (ImageView) findViewById(R.id.coffee_cup);
-        coffeeImage.setVisibility(coffee != null ? ImageView.VISIBLE : ImageView.INVISIBLE);
+        coffeeImage.setVisibility(coffee ? ImageView.VISIBLE : ImageView.INVISIBLE);
 
         if (estimation != null) {
             TextView estimationText = (TextView) findViewById(R.id.estimation_text);

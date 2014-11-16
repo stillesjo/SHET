@@ -71,16 +71,11 @@ public class SoloEstimationFragment extends BaseFragment {
                 return;
             }
             if (string.equals(getActivity().getResources().getString(R.string.coffe_string))) {
-                // Start activity with coffee cup
-                intent.putExtra(ScrumCardActivity.COFFEE_CUP,"TRUE");
+                intent.putExtra(ScrumCardActivity.COFFEE_CUP,ScrumCardActivity.COFFEE_CUP_TRUE);
             } else if (string.equals(getActivity().getResources().getString(R.string.no_points_string))){
                 intent.putExtra(ScrumCardActivity.ESTIMATE_STRING, "0");
             } else {
-                if (string.toLowerCase().indexOf("point") > 0) {
-                    string = string.substring(0,string.indexOf(" "));
-                }
-                // Start activity with string
-                intent.putExtra(ScrumCardActivity.ESTIMATE_STRING, string);
+                intent.putExtra(ScrumCardActivity.ESTIMATE_STRING, string.split(" ")[0]);
             }
             startActivity(intent);
         }
