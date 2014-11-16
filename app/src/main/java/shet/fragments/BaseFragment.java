@@ -2,6 +2,7 @@ package shet.fragments;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.Bundle;
 
 
 public abstract class BaseFragment extends android.support.v4.app.Fragment {
@@ -44,7 +45,9 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(Bundle result);
+
+        public void onFragmentInteraction(Uri result);
     }
 
 }

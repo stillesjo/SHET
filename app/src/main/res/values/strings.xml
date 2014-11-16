@@ -17,5 +17,6 @@
     <string name="about_application">About application</string>
     <string name="estimate_button_text">Initiate estimation</string>
     <string name="title_activity_scrum_card">ScrumCardActivity</string>
+    <string name="no_points_string">No points</string>
 
 </resources>

@@ -6,6 +6,7 @@
         <item>@string/about_application</item>
     </string-array>
     <string-array name = "estimation_array">
+        <item>@string/no_points_string</item>
         <item>1 point</item>
         <item>2 points</item>
         <item>3 points</item>

@@ -1,6 +1,7 @@
 package shet.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import shet.activities.MainActivity;
 import shet.activities.ScrumCardActivity;
 import shet.adapters.EstimationAdapter;
 import still.interactive.shet.R;
@@ -33,7 +35,7 @@ public class SoloEstimationFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.i(SOLO_TAG,"On create view");
+        Log.i(SOLO_TAG, "On create view");
         View view = inflater.inflate(R.layout.fragment_solo_estimation, container, false);
         setHasOptionsMenu(true);
         ListView list = (ListView)view.findViewById(R.id.estimate_list);
@@ -54,12 +56,20 @@ public class SoloEstimationFragment extends BaseFragment {
         super.onPrepareOptionsMenu(menu);
     }
 
+
+
     private class SoloItemClickListener implements AdapterView.OnItemClickListener{
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getActivity(), ScrumCardActivity.class);
             String string = mAdapter.getString(position);
+            if (getArguments().getBoolean(MainActivity.SILENT_MODE_STRING)) {
+                Bundle bundle = new Bundle();
+                bundle.putString(MainActivity.ESTIMATE_RESULT,string);
+                ((OnFragmentInteractionListener)getActivity()).onFragmentInteraction(bundle);
+                return;
+            }
             if (string.toUpperCase().indexOf("COFFEE") >= 0) {
                 // Start activity with coffee cup
                 intent.putExtra(ScrumCardActivity.COFFEE_CUP,"TRUE");

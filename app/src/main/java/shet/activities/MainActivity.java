@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
     public static final String ESTIMATE_RESULT = "ESTIMATE_RESULT";
     public static final String SCRUM_SERVICE_NAME = "_scrumestimation._tcp.";
     private static final String MAIN_ACTIVITY_TAG = "SHET.MainActivity";
+    public static final String SILENT_MODE_STRING = "SILENT_MODE";
 
     private ViewPager mViewPager;
 
@@ -84,6 +85,11 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onFragmentInteraction(Bundle result) {
+        Log.i(MAIN_ACTIVITY_TAG,"Got fragment bundle interaction.. yippi :)");
     }
 
     @Override
