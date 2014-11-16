@@ -1,5 +1,8 @@
 package shet.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -27,6 +31,8 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
     public static final String SCRUM_SERVICE_NAME = "_scrumestimation._tcp.";
     private static final String MAIN_ACTIVITY_TAG = "SHET.MainActivity";
     public static final String SILENT_MODE_STRING = "SILENT_MODE";
+    public static final String SHARED_PREFERENCES = "scrumhelperestimationtoolsharedpreferences";
+    public static final String PREFERENCE_USERNAME = "scrumhelperestimationtoolusername"    ;
 
     private ViewPager mViewPager;
 
@@ -35,9 +41,28 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SoloEstimationFragment startFragment = SoloEstimationFragment.newInstance(getIntent().getExtras());
-        startFragment.setArguments(getIntent().getExtras());
-        getSupportFragmentManager().beginTransaction().add(R.id.pager_main, startFragment);
+
+
+        final SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES, 0);
+        String username = prefs.getString(PREFERENCE_USERNAME, null);
+        if (username == null) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("Please enter a username");
+            final EditText input = new EditText(this);
+            alert.setView(input);
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString(PREFERENCE_USERNAME, input.getText().toString());
+                    editor.commit();
+                }
+            });
+            alert.show();
+        } else {
+            Log.i(MAIN_ACTIVITY_TAG,"Username wasn't null: " + username);
+        }
+
 
         mViewPager = (ViewPager) findViewById(R.id.pager_main);
         mViewPager.setAdapter(new ScrumFragmentPagerAdapter(getSupportFragmentManager()));
@@ -46,6 +71,10 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
         tabs.setShouldExpand(true);
         tabs.setOnPageChangeListener(new ScrumOnPageChangeListener());
         tabs.setViewPager(mViewPager);
+
+        SoloEstimationFragment startFragment = SoloEstimationFragment.newInstance(getIntent().getExtras());
+        startFragment.setArguments(getIntent().getExtras());
+        getSupportFragmentManager().beginTransaction().add(R.id.pager_main, startFragment);
 
     }
 

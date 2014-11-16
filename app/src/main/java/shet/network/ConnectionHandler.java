@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.List;
 
 import shet.activities.MainActivity;
@@ -36,10 +37,13 @@ public class ConnectionHandler {
         createListeners();
         mServiceOngoing = false;
         mSocketAllocated = false;
+        mPotentialUsers = new ArrayList<NsdServiceInfo>();
+        mConnectedUsers = new ArrayList<NsdServiceInfo>();
     }
 
-    public void initializeService() throws IOException {
+    public void initializeAndStartService() throws IOException {
         allocateSocket();
+        restartServices();
     }
 
     public void pauseService() {
@@ -57,12 +61,13 @@ public class ConnectionHandler {
         // Store the chosen port.
         mLocalPort = mServerSocket.getLocalPort();
         mSocketAllocated = true;
+    }
 
-        // Start the NSD Service
+    public void restartServices() {
         startServices();
     }
 
-    public void startServices() {
+    private void startServices() {
         if (!mSocketAllocated) {
             Log.e(CONNECTION_HANDLER_TAG,"Socket not initialized before trying to start the service... Will return");
             return;
@@ -73,7 +78,7 @@ public class ConnectionHandler {
         mServiceOngoing = true;
     }
 
-    public void registerService() {
+    private void registerService() {
         // Create nsd service object, containing all the information needed in order to start a connection.
         NsdServiceInfo serviceInfo = new NsdServiceInfo();
         serviceInfo.setServiceName(mUsername);
