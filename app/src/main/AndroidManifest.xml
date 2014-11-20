@@ -20,10 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="shet.activities.ChooseEstimationActivity"
-            android:label="@string/title_activity_choose_estimation" >
-        </activity>
-        <activity
             android:name="shet.activities.ScrumSyncActivity"
             android:label="@string/title_activity_scrym_sync" >
         </activity>
