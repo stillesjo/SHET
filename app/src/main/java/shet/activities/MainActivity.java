@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString(PREFERENCE_USERNAME, input.getText().toString());
-                    editor.commit();
+                    editor.apply();
                 }
             });
             alert.show();
