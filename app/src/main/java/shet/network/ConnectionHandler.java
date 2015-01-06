@@ -50,7 +50,7 @@ public class ConnectionHandler {
         if (mServiceOngoing) {
             mNsdManager.unregisterService(mRegistrationListener);
             mNsdManager.stopServiceDiscovery(mDiscoveryListener);
-            mServiceOngoing = true;
+            mServiceOngoing = false;
         }
     }
 

@@ -19,5 +19,6 @@
     <string name="title_activity_scrum_card">ScrumCardActivity</string>
     <string name="no_points_string">No points</string>
     <string name="coffe_string">Coffee break!</string>
+    <string name="title_activity_first_time">Scrum Helper Estimation Tool</string>
 
 </resources>

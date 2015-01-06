@@ -27,6 +27,11 @@
             android:name="shet.activities.ScrumCardActivity"
             android:label="@string/title_activity_scrum_card" >
         </activity>
+        <activity
+            android:name="shet.activities.FirstTimeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="@string/title_activity_first_time">
+        </activity>
     </application>
 
 </manifest>

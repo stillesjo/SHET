@@ -16,4 +16,10 @@
         android:icon="@drawable/ic_action_cancel"
         android:title="@string/action_estimate"
         />
+    <item
+        app:showAsAction="always"
+        android:id="@+id/action_debug_reset_name"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="Debug reset"
+        />
 </menu>

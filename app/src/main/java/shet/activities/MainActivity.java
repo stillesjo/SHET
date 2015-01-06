@@ -2,6 +2,7 @@ package shet.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -46,6 +47,15 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
         final SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES, 0);
         String username = prefs.getString(PREFERENCE_USERNAME, null);
         if (username == null) {
+            Intent intent = new Intent(this, FirstTimeActivity.class);
+            startActivity(intent);
+            SharedPreferences.Editor editor = prefs.edit();
+            // Temporary solution in order to not the first time activity pop-up every time
+            // Will be used later when we have group estimations.
+            editor.putString(PREFERENCE_USERNAME, "TempValue");
+            editor.apply();
+
+            /*
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Please enter a username");
             final EditText input = new EditText(this);
@@ -59,9 +69,11 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
                 }
             });
             alert.show();
+            */
         } else {
             Log.i(MAIN_ACTIVITY_TAG,"Username wasn't null: " + username);
         }
+
 
 
         mViewPager = (ViewPager) findViewById(R.id.pager_main);
@@ -105,6 +117,19 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_debug_reset_name:
+                SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES,0);
+                if (prefs != null) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove(PREFERENCE_USERNAME);
+                    editor.apply();
+                }
+                break;
+            case R.id.action_add_members:
+            case R.id.action_estimate:
+                break;
+        }
         return super.onOptionsItemSelected(item);
 
     }
