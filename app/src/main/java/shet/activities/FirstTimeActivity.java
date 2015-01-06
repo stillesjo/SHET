@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import still.interactive.shet.R;
 
 public class FirstTimeActivity extends ActionBarActivity {
@@ -25,6 +28,14 @@ public class FirstTimeActivity extends ActionBarActivity {
             Log.i(FIRST_ACTIVITY_TAG,"Unable to set version number");
             e.printStackTrace();
         }
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+               finish();
+            }
+        }, 2000);
     }
 
 
