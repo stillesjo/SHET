@@ -1,7 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="0dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="shet.activities.FirstTimeActivity">
@@ -12,22 +15,26 @@
         android:id="@+id/credit_card_image"
         android:src="@drawable/credit_cards"
         android:padding="0dp"
+        android:contentDescription="@string/card_description"
         />
-    <TextView android:text="Scrum Helper"
+
+    <TextView android:text="@string/text_scrum_first_part"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/credit_card_image"
         android:layout_centerHorizontal="true"
         android:paddingRight="50dp"
-        android:textSize="40dp"
+        android:paddingLeft="0dp"
+        android:textSize="40sp"
 
         android:id="@+id/text_scrum"/>
-    <TextView android:text="Estimation Tool"
+    <TextView android:text="@string/text_scum_second_part"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_scrum"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:paddingLeft="50dp"
+        android:paddingRight="0dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/text_helper"/>
 
@@ -38,14 +45,23 @@
         android:id="@+id/version_text"
         android:layout_centerHorizontal="true"
         />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar_startup"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/version_text"
+        android:layout_marginTop="20dp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/copyright_text"
-        android:text="© Alexander Stillesjö 2015"
+        android:text="@string/copyright_information"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="10dp"
+        android:paddingLeft="10dp"
+        android:textSize="10sp"
         />
 </RelativeLayout>

@@ -20,17 +20,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="shet.activities.ScrumSyncActivity"
-            android:label="@string/title_activity_scrym_sync" >
-        </activity>
-        <activity
             android:name="shet.activities.ScrumCardActivity"
             android:label="@string/title_activity_scrum_card" >
         </activity>
         <activity
             android:name="shet.activities.FirstTimeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="@string/title_activity_first_time">
+            android:label="@string/title_activity_first_time"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name="shet.activities.AboutActivity"
+            android:label="@string/title_activity_about" >
         </activity>
     </application>
 

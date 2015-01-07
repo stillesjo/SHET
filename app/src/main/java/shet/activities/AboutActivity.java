@@ -1,48 +1,30 @@
 package shet.activities;
 
-import android.content.pm.PackageManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import android.webkit.WebView;
 
 import still.interactive.shet.R;
 
-public class FirstTimeActivity extends ActionBarActivity {
-
-    private static final String FIRST_ACTIVITY_TAG = "FIRST_ACTIVITY_TAG";
+public class AboutActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_time);
-        TextView versionText = (TextView) findViewById(R.id.version_text);
-        try {
-            versionText.setText(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.i(FIRST_ACTIVITY_TAG,"Unable to set version number");
-            e.printStackTrace();
-        }
+        setContentView(R.layout.activity_about);
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-               finish();
-            }
-        }, 4000);
+        WebView webView = (WebView) findViewById(R.id.web_view);
+        webView.loadUrl("file:///android_asset/about.htm");
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_first_time, menu);
+        getMenuInflater().inflate(R.menu.menu_about, menu);
         return true;
     }
 

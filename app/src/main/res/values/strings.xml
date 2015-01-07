@@ -13,12 +13,18 @@
     <string name="drawer_close">Close</string>
     <string name="drawer_open">Open</string>
     <string name="estimate_yourself">Simple estimation</string>
-    <string name="estimate_others">Group estimation</string>
-    <string name="about_application">About application</string>
+    <string name="about_application">About</string>
     <string name="estimate_button_text">Initiate estimation</string>
     <string name="title_activity_scrum_card">ScrumCardActivity</string>
     <string name="no_points_string">No points</string>
     <string name="coffe_string">Coffee break!</string>
     <string name="title_activity_first_time">Scrum Helper Estimation Tool</string>
+    <string name="text_scrum_first_part">Scrum Helper</string>
+    <string name="text_scum_second_part">Estimation Tool</string>
+    <string name="copyright_information">© Alexander Stillesjö 2015</string>
+    <string name="drawer_image_description">Drawer image</string>
+    <string name="card_description">Card bundle</string>
+    <string name="coffee_cup_description">Coffee cup</string>
+    <string name="title_activity_about">AboutActivity</string>
 
 </resources>

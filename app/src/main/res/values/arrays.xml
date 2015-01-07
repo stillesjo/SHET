@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="choice_array">
-        <item>@string/estimate_yourself</item>
-        <item>@string/estimate_others</item>
-        <item>@string/about_application</item>
-    </string-array>
     <string-array name = "estimation_array">
         <item>@string/no_points_string</item>
         <item>1 point</item>

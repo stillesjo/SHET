@@ -17,12 +17,10 @@ public class EstimationAdapter extends BaseAdapter{
 
     private final String[] mEstimations;
     private final LayoutInflater mInflater;
-    private final Resources mResources;
 
-    public EstimationAdapter(LayoutInflater inflater, String[] strings, Resources resources) {
+    public EstimationAdapter(LayoutInflater inflater, String[] strings) {
         mEstimations = strings;
         mInflater = inflater;
-        mResources = resources;
     }
 
     @Override

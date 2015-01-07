@@ -5,21 +5,14 @@
 
 
     <item
-        app:showAsAction="ifRoom"
-        android:id="@+id/action_add_members"
-        android:icon="@drawable/ic_action_add_group"
-        android:title="@string/action_add_members"
-        />
-    <item
-        app:showAsAction="always"
-        android:id="@+id/action_estimate"
-        android:icon="@drawable/ic_action_cancel"
-        android:title="@string/action_estimate"
-        />
-    <item
         app:showAsAction="always"
         android:id="@+id/action_debug_reset_name"
         android:icon="@android:drawable/ic_menu_rotate"
-        android:title="Debug reset"
+        android:title="@android:string/cancel"
+        />
+    <item
+        app:showAsAction="never"
+        android:id="@+id/action_about"
+        android:title="@string/about_application"
         />
 </menu>

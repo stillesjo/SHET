@@ -44,7 +44,6 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Bundle result);
 
         public void onFragmentInteraction(Uri result);

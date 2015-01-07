@@ -40,7 +40,7 @@ public class SoloEstimationFragment extends BaseFragment {
         setHasOptionsMenu(true);
         ListView list = (ListView)view.findViewById(R.id.estimate_list);
 
-        mAdapter = new EstimationAdapter(getActivity().getLayoutInflater(), getActivity().getResources().getStringArray(R.array.estimation_array), getResources());
+        mAdapter = new EstimationAdapter(getActivity().getLayoutInflater(), getActivity().getResources().getStringArray(R.array.estimation_array));
 
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(new SoloItemClickListener());
@@ -51,8 +51,6 @@ public class SoloEstimationFragment extends BaseFragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_add_members).setVisible(false);
-        menu.findItem(R.id.action_estimate).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 
