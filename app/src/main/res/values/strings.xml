@@ -25,6 +25,6 @@
     <string name="drawer_image_description">Drawer image</string>
     <string name="card_description">Card bundle</string>
     <string name="coffee_cup_description">Coffee cup</string>
-    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_about">About SHET</string>
 
 </resources>
