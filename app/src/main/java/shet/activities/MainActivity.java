@@ -73,14 +73,15 @@ public class MainActivity extends ActionBarActivity implements BaseFragment.OnFr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_debug_reset_name:
-                SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES, 0);
-                if (prefs != null) {
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.remove(PREFERENCE_USERNAME);
-                    editor.apply();
-                }
-                break;
+//            case R.id.action_debug_reset_name:
+//                Not in live use!
+//                SharedPreferences prefs = getSharedPreferences(SHARED_PREFERENCES, 0);
+//                if (prefs != null) {
+//                    SharedPreferences.Editor editor = prefs.edit();
+//                    editor.remove(PREFERENCE_USERNAME);
+//                    editor.apply();
+//                }
+//                break;
             case R.id.action_about:
                 Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
