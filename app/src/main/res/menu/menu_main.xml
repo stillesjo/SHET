@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
+<!-- For debug use only...
     <item
         app:showAsAction="always"
         android:id="@+id/action_debug_reset_name"
         android:icon="@android:drawable/ic_menu_rotate"
         android:title="@android:string/cancel"
         />
+    -->
     <item
         app:showAsAction="never"
         android:id="@+id/action_about"
